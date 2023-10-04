@@ -1,0 +1,51 @@
+<main>
+    <h1>Criar novo contato</h1>
+
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <section class="field-container">
+          <div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" formControlName="nome">
+            <div *ngIf="contactForm.get('nome')?.hasError('required') && isValidated === false" class="error">Nome é obrigatório.</div>
+            <div *ngIf="contactForm.get('nome')?.hasError('maxlength')">Nome deve ter no máximo 100 caracteres.</div>
+          </div>
+        
+          <div>
+            <label for="email">E-mail:</label>
+            <input type="text" id="email" formControlName="email">
+            <div *ngIf="contactForm.get('email')?.hasError('required') && isValidated === false" class="error">E-mail é obrigatório.</div>
+            <div *ngIf="contactForm.get('email')?.hasError('email')" class="error">E-mail inválido.</div>
+          </div>
+        </section>
+        <section class="field-container">
+          <div>
+            <label for="celular">Celular:</label>
+            <input type="text" mask="(00) 0.0000-0000" id="celular" formControlName="celular">
+            <div *ngIf="contactForm.get('celular')?.hasError('required') && isValidated === false" class="error">Celular é obrigatório.</div>
+            <div *ngIf="contactForm.get('celular')?.hasError('pattern')" class="error">Formato de celular inválido.</div>
+          </div>
+        
+          <div>
+            <label for="telefone">Telefone:</label>
+            <input type="text" mask="(00) 0.0000-0000" id="telefone" formControlName="telefone">
+            <div *ngIf="contactForm.get('telefone')?.hasError('pattern')" class="error">Formato de telefone inválido.</div>
+          </div>
+        </section>
+        
+        <hr>
+      
+        <section class="checkbox-container">
+          <div class="box-checkbox">
+            <label for="favorito">Favorito:</label>
+            <input type="checkbox" id="favorito" formControlName="favorito">
+          </div>
+        
+          <div class="box-checkbox">
+            <label for="ativo">Ativo/Inativo:</label>
+            <input type="checkbox" id="ativo" formControlName="ativo">
+          </div>
+        </section>
+      
+        <button type="submit">Enviar</button>
+      </form>
+</main>

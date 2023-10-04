@@ -1,0 +1,50 @@
+<main>
+  <h1>Lista de contacts</h1>
+  <form [formGroup]="contactSearchForm" class="search-container">
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Pesquisar contacts..."
+      formControlName="contact"
+    />
+
+    <button class="search-button" (click)="getContact()">Pesquisar</button>
+    <button class="search-button filter" (click)="getAllContact()">Limpar filtro</button>
+  </form>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Celular</th>
+        <th>Telefone</th>
+        <th>Favorito</th>
+        <th>Ativo</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contact of contactList" [ngClass]="{'inativo': !contact.contact_is_active}">
+        <td>{{ contact.contact_name }}</td>
+        <td>{{ contact.contact_email }}</td>
+        <td>{{ contact.contact_mobile | phone }}</td>
+        <td>{{ contact.contact_phone | phone }}</td>
+        <td>
+          <span *ngIf="contact.contact_is_favorite" (click)="isFavorite(contact.contact_id)">
+            <i class="fa fa-star icon"></i>
+          </span>
+          <span *ngIf="!contact.contact_is_favorite" (click)="isFavorite(contact.contact_id)">
+            <i class="fa-regular fa-star icon"></i>
+          </span>
+        </td>
+        <td>
+          {{ contact.contact_is_active ? "Sim" : "Não" }}
+        </td>
+        <td>
+          <i class="fa-regular fa-edit icon"  [routerLink]="['/edit-contact', contact.contact_id]"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</main>
